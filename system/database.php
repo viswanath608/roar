@@ -118,9 +118,7 @@ class Database {
 		}
 
 		if(count($this->or_where)) {
-			if(empty($this->where)) $sql .= ' WHERE';
-
-			$sql .= ' ' . implode(' OR ', $this->or_where);
+			$sql .= (empty($this->where) ? ' WHERE ' : ' OR ') . implode(' OR ', $this->or_where);
 		}
 
 		if(count($this->sort)) {

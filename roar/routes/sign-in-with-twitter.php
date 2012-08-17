@@ -1,12 +1,15 @@
 <?php
 
+function get_twitter_api() {
+	return new Twitter(Config::get('settings.twitter_consumer_key'), Config::get('settings.twitter_consumer_secret'));
+}
 
 /*
 	Login with twitter
 */
 Route::get('sign-in-with-twitter', function() {
 	
-	$api = new Twitter(Config::get('settings.twitter_consumer_key'), Config::get('settings.twitter_consumer_secret'));
+	$api = get_twitter_api();
 
 	$callback = 'http://' . $_SERVER['HTTP_HOST'] . '/callback';
 	
@@ -29,8 +32,7 @@ Route::get('callback', function() {
 	// user declined
 	if(Input::get('denied')) return Response::redirect('/');
 
-	// get access tokens
-	$api = new Twitter(Config::get('settings.twitter_consumer_key'), Config::get('settings.twitter_consumer_secret'));
+	$api = get_twitter_api();
 	
 	$api->set_token(Session::get('request_tokens'));
 

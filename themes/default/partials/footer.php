@@ -8,6 +8,7 @@ Bindings: <?php echo implode(', ', $query['bindings']); ?>
 
 <?php endforeach; ?>
 -->
+    </div>
 
 	</body>
 </html>

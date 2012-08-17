@@ -2,7 +2,7 @@
 
 return array(
 
-	'base_url' => '/',
+	'base_url' => '/roar/',
 
 	'index_page' => '',
 

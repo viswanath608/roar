@@ -9,18 +9,20 @@
 		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 
-		<link rel="stylesheet" href="<?php echo theme_url('assets/css/normalize.css'); ?>" type="text/css">
-		<link rel="stylesheet" href="<?php echo theme_url('assets/css/styles.css'); ?>" type="text/css">
+		<link rel="stylesheet" href="<?php echo theme_url('assets/css/styles.css'); ?>">
+		
+		<script src="//code.jquery.com/jquery-latest.min.js"></script>
+		<script src="<?php echo theme_url('assets/js/roar.js'); ?>"></script>
 	</head>
 	<body>
 
-		<header>
-			<h1><?php echo forum_name(); ?></h1>
+		<header id="top">
+			<a id="home-link" href="<?php echo base_url(); ?>"><?php echo forum_name(); ?></a>
 
 			<nav>
 				<ul>
 					<li><a href="<?php echo base_url(); ?>">Home</a></li>
-					<li><a href="<?php echo base_url() . 'search'; ?>">Search</a></li>
+					<li><a class="search-link" href="<?php echo base_url() . 'search'; ?>">Search</a></li>
 				</ul>
 
 				<?php if(Auth::guest()): ?>
@@ -43,3 +45,5 @@
 		</header>
 
 		<?php echo Notify::read(); ?>
+		
+		<div id="content">

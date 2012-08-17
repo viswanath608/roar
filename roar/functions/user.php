@@ -24,6 +24,14 @@ function user_username() {
 	return Registry::get('user')->username;
 }
 
+function user_has_twitter() {
+	return strlen(Registry::get('user')->token) > 0;
+}
+
+function user_twitter_url() {
+	return Registry::get('user')->token ? 'https://twitter.com/' . user_username() : '';
+}
+
 function user_total_posts() {
 	return Registry::get('user')->posts;
 }

@@ -11,7 +11,7 @@ Route::get('sign-in-with-twitter', function() {
 	
 	$api = get_twitter_api();
 
-	$callback = 'http://' . $_SERVER['HTTP_HOST'] . '/callback';
+	$callback = 'http://' . $_SERVER['HTTP_HOST'] . Uri::make('callback');
 	
 	$token = $api->request_token($callback);
 

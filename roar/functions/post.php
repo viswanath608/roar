@@ -26,7 +26,10 @@ function post_title() {
 }
 
 function post_user() {
-	return User::find(Registry::get('post')->user)->username;
+	$id = Registry::get('post')->user;
+	$user = User::find($id);
+
+	return $user->username;
 }
 
 function post_url() {
@@ -56,5 +59,5 @@ function post_report_url() {
 }
 
 function post_quote_url() {
-	return base_url() . 'topic/' . topic_id() . '-' . topic_slug() . '/quote/' . post_id();
+	return '#quote-' . post_id();
 }

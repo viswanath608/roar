@@ -20,7 +20,7 @@
 			<nav>
 				<ul>
 					<li><a href="<?php echo base_url(); ?>">Home</a></li>
-					<li><a href="<?php echo base_url(); ?>">Search</a></li>
+					<li><a href="<?php echo base_url() . 'search'; ?>">Search</a></li>
 				</ul>
 
 				<?php if(Auth::guest()): ?>

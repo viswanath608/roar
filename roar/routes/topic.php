@@ -150,8 +150,18 @@ Route::get('vote/(:num)', array('before' => 'auth-user', 'do' => function($id) {
 		return Response::error(404);
 	}
 
-	$topic->votes += 1;
-	$topic->save();
+	// get authed user
+	$user = Auth::user();
+
+	// check if user hasnt voted
+	if(DB::table('user_votes')->where('user', '=', $user->id)->where('topic', '=', $topic->id)->count() == 0) {
+		// increment votes
+		$topic->votes += 1;
+		$topic->save();
+
+		// add user to votes to stop users voting multiple times
+		DB::table('user_votes')->insert(array('user' => $user->id, 'topic' => $topic->id));
+	}
 
 	return Response::redirect('topic/' . $topic->id . '-' . $topic->slug);
 }));

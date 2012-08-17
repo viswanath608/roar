@@ -4,7 +4,9 @@
 
 	<p>Registered on <?php echo user_registered(); ?></p>
 
-	<p>Twitter <a href="#">@<?php echo user_username(); ?></a></p>
+	<?php if(user_has_twitter()): ?>
+	<p>Twitter <a href="<?php echo user_twitter_url(); ?>">@<?php echo user_username(); ?></a></p>
+	<?php endif; ?>
 
 	<p><strong>Latest posts</strong></p>
 

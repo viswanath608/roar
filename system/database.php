@@ -2,7 +2,7 @@
 
 class Database {
 
-	private $table, $bindings = array(), $where = array();
+	private $table, $bindings = array(), $where = array(), $or_where = array();
 
 	private $join = '';
 
@@ -88,6 +88,13 @@ class Database {
 		return $this;
 	}
 
+	public function or_where($column, $operator, $value) {
+		$this->or_where[] = static::wrap($column) . ' ' . $operator . ' ?';
+		$this->bindings[] = $value;
+
+		return $this;
+	}
+
 	public function skip($num) {
 		$this->offset = $num;
 		return $this;
@@ -108,6 +115,12 @@ class Database {
 
 		if(count($this->where)) {
 			$sql .= ' WHERE ' . implode(' AND ', $this->where);
+		}
+
+		if(count($this->or_where)) {
+			if(empty($this->where)) $sql .= ' WHERE';
+
+			$sql .= ' ' . implode(' OR ', $this->or_where);
 		}
 
 		if(count($this->sort)) {

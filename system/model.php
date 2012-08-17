@@ -6,6 +6,8 @@ class Model {
 
 	public static $table;
 
+	protected static $cache = array();
+
 	private $id;
 
 	private $data = array();
@@ -30,8 +32,15 @@ class Model {
 
 	public static function find($id) {
 		$class = get_called_class();
+		$item = $id . '-' . $class;
 
-		return new $class($id);
+		if(isset(static::$cache[$item])) {
+			return static::$cache[$item];
+		}
+
+		static::$cache[$item] = new $class($id);
+
+		return static::$cache[$item];
 	}
 
 	public function populate($data) {

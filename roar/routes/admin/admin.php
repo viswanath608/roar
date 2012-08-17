@@ -2,14 +2,13 @@
 
 Route::get('admin', function() {
 	if(Auth::guest()) return Response::redirect('admin/login');
-	return Response::redirect('admin/posts');
+	return Response::redirect('admin/dashboard');
 });
 
 /*
 	Log in
 */
 Route::get('admin/login', function() {
-	
 	$vars['messages'] = Notify::read();
 	$vars['token'] = Csrf::token();
 
@@ -25,7 +24,7 @@ Route::post('admin/login', array('before' => 'csrf', 'do' => function() {
 		return Response::redirect('admin/login');
 	}
 
-	return Response::redirect('admin/posts');
+	return Response::redirect('admin/dashboard');
 }));
 
 /*

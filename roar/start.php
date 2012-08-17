@@ -19,3 +19,21 @@ foreach($fi as $file) {
 		require $file->getPathname();
 	}
 }
+
+// language helper
+function __($key, $default = '') {
+	return $default;
+}
+
+// admin helpers
+function asset($path) {
+	return Config::get('application.base_url') . 'roar/views/assets/' . ltrim($path, '/');
+}
+
+function url($path) {
+	return base_url('admin/' . $path);
+}
+
+function site() {
+	return base_url();
+}

@@ -1,13 +1,13 @@
 <?php
 
-function base_url() {
+function base_url($path = '') {
 	$url = Config::get('application.base_url');
 
 	if($index = Config::get('application.index_page')) {
 		$url .= $index . '/';
 	}
 
-	return $url;
+	return $url . trim($path, '/');
 }
 
 function base_path() {

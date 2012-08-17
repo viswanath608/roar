@@ -25,7 +25,7 @@
 
 						<p class="buttons">
 							<button type="submit"><?php echo __('users.login', 'Login'); ?></button>
-							<a href="<?php echo site(); ?>">Back to <?php echo Config::get('meta.sitename'); ?></a>
+							<a href="<?php echo site(); ?>">Back to <?php echo Config::get('settings.forum_name'); ?></a>
 						</p>
 					</fieldset>
 				</form>

@@ -10,7 +10,7 @@ require PATH . 'system/helpers.php';
  */
 if(has_php(5.3) === false) {
 	// echo and exit with some usful information
-	echo 'Anchor requires PHP 5.3 or newer, your current environment is running PHP ' . PHP_VERSION;
+	echo 'Roar requires PHP 5.3 or newer, your current environment is running PHP ' . PHP_VERSION;
 	exit(1);
 }
 
@@ -41,17 +41,15 @@ if(magic_quotes()) {
 }
 
 // get our autoloader
+require PATH . 'system/error.php';
+require PATH . 'system/config.php';
 require PATH . 'system/autoload.php';
 
 // tell the autoloader where to find classes
-Autoloader::directory(array(
-	PATH . 'system',
-	APP . 'libraries',
-	APP . 'models'
-));
+System\Autoloader::directory(array(PATH, APP . 'libraries' . DS, APP . 'models' . DS));
 
 // register the auto loader
-Autoloader::register();
+System\Autoloader::register();
 
 /*
 	Error handling
@@ -88,13 +86,6 @@ switch(Request::method()) {
 		break;
 	default:
 		parse_str(file_get_contents('php://input'), Input::$array);
-}
-
-/*
-	Aliases
-*/
-foreach(array('Database' => 'DB') as $class => $alias) {
-	class_alias($class, $alias);
 }
 
 /*

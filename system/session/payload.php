@@ -1,7 +1,7 @@
-<?php namespace Session;
+<?php namespace System\Session;
 
-use Config;
-use Cookie;
+use System\Config;
+use System\Cookie;
 
 class Payload {
 
@@ -31,24 +31,15 @@ class Payload {
 	}
 
 	public function get($key, $default = null) {
-		$session = $this->session['data'];
-
-		// We check for the item in the general session data first, and if it
-		// does not exist in that data, we will attempt to find it in the new
-		// and old flash data, or finally return the default value.
-		if(array_key_exists($key, $session)) {
-			return $session[$key];
-		}
-
-		return $default;
+		return array_get($this->session['data'], $key, $default);
 	}
 
 	public function put($key, $value) {
-		$this->session['data'][$key] = $value;
+		array_set($this->session['data'], $key, $value);
 	}
 
 	public function forget($key) {
-		unset($this->session['data'][$key]);
+		array_forget($this->session['data'], $key);
 	}
 
 	public function regenerate() {
@@ -85,7 +76,9 @@ class Payload {
 	protected function cookie($config) {
 		extract($config, EXTR_SKIP);
 
-		Cookie::put($name, $this->session['id'], $expire, $path, $domain, $secure);	
+		$lifetime = ( ! $expire_on_close) ? $lifetime : 0;
+
+		Cookie::put($cookie, $this->session['id'], $lifetime, $path, $domain, $secure);	
 	}
 
 	protected function age() {

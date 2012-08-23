@@ -1,6 +1,6 @@
-<?php
+<?php namespace System;
 
-use Database as DB;
+use System\Database\Query;
 
 class Model {
 
@@ -14,7 +14,7 @@ class Model {
 
 	public function __construct($id = null) {
 		if( ! is_null($id)) {
-			$row = DB::table(static::$table)->where('id', '=', $id)->fetch();
+			$row = Query::table(static::$table)->where('id', '=', $id)->fetch();
 			$this->id = $id;
 			$this->populate($row);
 		}
@@ -61,7 +61,7 @@ class Model {
 	}
 
 	public function delete() {
-		$query = DB::table(static::$table)->where('id', '=', $this->id);
+		$query = Query::table(static::$table)->where('id', '=', $this->id);
 		
 		$this->id = null;
 		$this->data = array();
@@ -70,23 +70,23 @@ class Model {
 	}
 
 	public static function where($column, $operator, $value) {
-		return DB::table(static::$table)->where($column, $operator, $value);
+		return Query::table(static::$table)->where($column, $operator, $value);
 	}
 
 	public static function create($data) {
-		return DB::table(static::$table)->insert_get_id($data);
+		return Query::table(static::$table)->insert_get_id($data);
 	}
 
 	public static function update($id, $data) {
-		return DB::table(static::$table)->where('id', '=', $id)->update($data);
+		return Query::table(static::$table)->where('id', '=', $id)->update($data);
 	}
 
 	public static function all() {
-		return DB::table(static::$table)->get();
+		return Query::table(static::$table)->get();
 	}
 
 	public static function paginate($page = 1, $perpage = 10) {
-		$query = DB::table(static::$table);
+		$query = Query::table(static::$table);
 
 		$count = $query->count();
 

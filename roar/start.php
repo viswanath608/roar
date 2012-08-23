@@ -5,7 +5,7 @@
 */
 
 // load settings
-foreach(DB::table('settings')->get() as $item) {
+foreach(Query::table('settings')->get() as $item) {
 	$settings[$item->key] = $item->value;
 }
 

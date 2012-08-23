@@ -16,13 +16,14 @@ Route::post('search', function() {
 	// search topics
 	$perpage = 10;
 /*
-	$query = DB::table('topics')
+	$query = Query::table('topics')
 		->join('posts', 'posts.topic', '=', 'topics.id')
 		->where('title', 'like', $term . '%')
 		->or_where('posts.body', 'like', $term . '%')
 		->take($perpage * 10);
 */
-	$query = DB::table('posts')
+
+	$query = Query::table('posts')
 		->where('body', 'like', '%' . $term . '%')
 		->take($perpage * 10);
 

@@ -1,4 +1,6 @@
-<?php
+<?php namespace System;
+
+use FilesystemIterator;
 
 class Router {
 

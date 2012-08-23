@@ -1,8 +1,12 @@
-<?php
+<?php namespace System;
 
 class Cookie {
 
 	public static $jar = array();
+
+	public static function has($name) {
+		return isset(static::$jar[$name]) or array_key_exists($name, $_COOKIE);
+	}
 
 	public static function get($name, $default = null) {
 		if(isset(static::$jar[$name])) return static::$jar[$name]['value'];

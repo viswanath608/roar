@@ -80,7 +80,7 @@ Route::get(array('topic/(:any)', 'topic/(:any)/(:num)'), function($slug, $page =
 
 	$query = Post::where('topic', '=', $topic->id);
 	$count = $query->count();
-	$posts = $query->sort('date')->take($perpage)->skip(($page - 1) * $perpage)->get();
+	$posts = $query->order_by('date')->take($perpage)->skip(($page - 1) * $perpage)->get();
 
 	$url = Uri::make('topic/' . $topic->id . '-' . $topic->slug);
 	$paginator = new Paginator($posts, $count, $page, $perpage, $url);
@@ -154,13 +154,13 @@ Route::get('vote/(:num)', array('before' => 'auth-user', 'do' => function($id) {
 	$user = Auth::user();
 
 	// check if user hasnt voted
-	if(DB::table('user_votes')->where('user', '=', $user->id)->where('topic', '=', $topic->id)->count() == 0) {
+	if(Query::table('user_votes')->where('user', '=', $user->id)->where('topic', '=', $topic->id)->count() == 0) {
 		// increment votes
 		$topic->votes += 1;
 		$topic->save();
 
 		// add user to votes to stop users voting multiple times
-		DB::table('user_votes')->insert(array('user' => $user->id, 'topic' => $topic->id));
+		Query::table('user_votes')->insert(array('user' => $user->id, 'topic' => $topic->id));
 	}
 
 	return Response::redirect('topic/' . $topic->id . '-' . $topic->slug);

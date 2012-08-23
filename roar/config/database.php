@@ -1,15 +1,21 @@
 <?php
 
 return array(
-	'host' => '127.0.0.1',
+
+	'default' => 'mysql',
+
+	'fetch' => PDO::FETCH_OBJ,
 	
-	'port' => '3306',
+	'connections' => array(
 
-	'username' => 'root',
+		'mysql' => array(
+			'driver' => 'mysql',
+			'hostname' => 'localhost',
+			'username' => 'root',
+			'password' => '',
+			'database' => '',
+			'charset' => 'utf8'
+		)
 
-	'password' => '',
-
-	'name' => 'roar',
-
-	'collation' => 'utf8_bin'
+	)
 );

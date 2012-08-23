@@ -1,17 +1,32 @@
-<?php
+<?php namespace System;
+
+use Session\Payload, System\Cookie;
 
 class Session {
 
 	public static $instance;
 
 	public static function load() {
-		static::start();
+		static::start(Config::get('session.driver'));
 
-		static::$instance->load(Cookie::get(Config::get('session.name')));
+		static::$instance->load(Cookie::get(Config::get('session.cookie')));
 	}
 
-	public static function start() {
-		static::$instance = new Session\Payload(new Session\Drivers\Database);
+	public static function start($driver) {
+		static::$instance = new Session\Payload(static::factory($driver));
+	}
+
+	public static function factory($driver) {
+		switch ($driver) {
+			case 'cookie':
+				return new Session\Drivers\Cookie;
+
+			case 'database':
+				return new Session\Drivers\Database;
+
+			default:
+				throw new \Exception("Session driver [$driver] is not supported.");
+		}
 	}
 
 	public static function started() {

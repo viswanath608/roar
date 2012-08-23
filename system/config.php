@@ -1,96 +1,46 @@
-<?php
+<?php namespace System;
 
 class Config {
 
-	private static $items = array();
-	private static $cache = array();
-
-	/*
-		Load the default config file
-	*/
-	public static function load($name) {
-		$path = APP . 'config' . DS . $name . '.php';
-
-		if(is_readable($path)) {
-			static::$items[$name] = require $path;
-		}
-	}
+	public static $items = array(),  $cache = array(), $mapped = array();
 	
-	/*
-		Set a config item
-	*/
-	public static function set($key, $value) {
-		// array pointer for search
-		$array =& static::$items;
-
-		$keys = explode('.', $key);
-
-		while(count($keys) > 1) {
-			$key = array_shift($keys);
-
-			if(!isset($array[$key]) or !is_array($array[$key])) {
-				$array[$key] = array();
-			}
-
-			$array =& $array[$key];
-		}
-
-		$array[array_shift($keys)] = $value;
-	}
-	
-	/*
-		Retrive a config param
-	*/
-	public static function get($key, $default = false) {
+	public static function get($key, $default = null) {
 		// return cached
 		if(isset(static::$cache[$key])) {
 			return static::$cache[$key];
 		}
 
 		// load config file
-		$segments = explode('.', $key);
-		$config = $segments[0];
+		$file = current(explode('.', $key));
 
-		if(empty(static::$items[$config])) static::load($config);
-
-		// copy array for search
-		$array = static::$items;
-
-		// search array
-		foreach($segments as $segment) {
-			if(!is_array($array) or array_key_exists($segment, $array) === false) {
-				return $default;
-			}
-
-			$array = $array[$segment];
+		if(!array_key_exists($file, static::$mapped)) {
+			static::load($file);
 		}
 
 		// cache it for faster lookups
-		static::$cache[$key] = $array;
+		static::$cache[$key] = array_get(static::$items, $key, $default);
 
-		return $array;
+		return static::$cache[$key];
 	}
 
-	/*
-		Remove a config param
-	*/
+	public static function set($key, $value) {
+		array_set(static::$items, $key, $value);
+	}
+
 	public static function forget($key) {
-		// array pointer for search
-		$array =& static::$items;
+		array_forget(static::$items, $key);
+	}
 
-		$keys = explode('.', $key);
+	public static function load($file) {
+		if(in_array($file, static::$mapped)) return;
 
-		while(count($keys) > 1) {
-			$key = array_shift($keys);
+		if(is_readable($path = APP . 'config/' . $file . '.php')) {
+			// add file to mapped files
+			static::$mapped[] = $file;
 
-			if(!isset($array[$key]) or !is_array($array[$key])) {
-				return;
-			}
-
-			$array =& $array[$key];
+			// get returned array
+			static::$items[$file] = require $path;
 		}
-
-		unset($array[array_shift($keys)]);
 	}
 
 }

@@ -2,9 +2,9 @@
 
 return array(
 
-	'base_url' => '/roar/',
+	'base_url' => '/',
 
-	'index_page' => '',
+	'index_page' => 'index.php',
 
 	// your time zone
 	'timezone' => 'Europe/London',

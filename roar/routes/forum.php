@@ -25,8 +25,8 @@ Route::get(array('forum/(:any)', 'forum/(:any)/(:num)'), function($slug, $page =
 	$perpage = 10;
 
 	$topics = Topic::where('forum', '=', $forum->id)
-		->sort('votes', 'desc')
-		->sort('lastpost', 'desc')
+		->order_by('votes', 'desc')
+		->order_by('lastpost', 'desc')
 		->take($perpage)
 		->skip(--$page * $perpage)
 		->get();

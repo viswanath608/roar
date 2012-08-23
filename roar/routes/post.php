@@ -13,11 +13,11 @@ Route::get('report/(:num)', array('before' => 'auth-user', 'do' => function($id)
 	$user = Auth::user();
 
 	// report post
-	if(DB::table('post_reports')->where('post', '=', $post->id)->where('user', '=', $user->id)->count()) {
+	if(Query::table('post_reports')->where('post', '=', $post->id)->where('user', '=', $user->id)->count()) {
 		Notify::notice('Post has already been reported for moderation');
 	}
 	else {
-		DB::table('post_reports')->insert(array('post' => $post->id, 'user' => $user->id));
+		Query::table('post_reports')->insert(array('post' => $post->id, 'user' => $user->id));
 
 		Notify::notice('Post has been reported for moderation');
 	}

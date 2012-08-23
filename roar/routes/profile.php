@@ -11,7 +11,7 @@ Route::get('profiles/(:any)', function($username) {
 	// get last 4 posts
 	$posts = Post::where('user', '=', $user->id)
 		->join('topics', 'topics.id', '=', 'posts.topic')
-		->sort('date', 'desc')
+		->order_by('date', 'desc')
 		->take(4)
 		->get(array('posts.*', 'topics.slug', 'topics.title'));
 

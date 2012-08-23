@@ -1,6 +1,6 @@
-<?php
+<?php namespace System;
 
-use Routing\Filters;
+use System\Routing\Filters;
 
 class Route {
 

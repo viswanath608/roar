@@ -23,9 +23,3 @@ function theme_include($file) {
 		return require $path;
 	}
 }
-
-function parse_slug($str) {
-	$parts = explode('-', $str);
-
-	return array(array_shift($parts), implode('-', $parts));
-}

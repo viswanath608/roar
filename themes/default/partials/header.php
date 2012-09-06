@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-		<title><?php echo forum_name(); ?></title>
+		<title><?php echo site_name(); ?></title>
 
 		<!--[if lt IE 9]>
 		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -17,7 +17,7 @@
 	<body>
 
 		<header id="top">
-			<a id="home-link" href="<?php echo base_url(); ?>"><?php echo forum_name(); ?></a>
+			<a id="home-link" href="<?php echo base_url(); ?>"><?php echo site_name(); ?></a>
 
 			<nav>
 				<ul>
@@ -31,7 +31,7 @@
 						<a href="<?php echo base_url() . 'sign-in-with-twitter'; ?>">Sign in with Twitter</a><br>
 						<small><a href="<?php echo base_url() . 'register'; ?>">Dont have Twitter? Register here</a></small>
 					</li>
-					<li><a href="<?php echo base_url() . 'login'; ?>">Login to <?php echo forum_name(); ?></a></li>
+					<li><a href="<?php echo base_url() . 'login'; ?>">Login to <?php echo site_name(); ?></a></li>
 				</ul>
 				<?php else: ?>
 				<ul>

@@ -12,8 +12,8 @@ return array(
 			'driver' => 'mysql',
 			'hostname' => 'localhost',
 			'username' => 'root',
-			'password' => '',
-			'database' => '',
+			'password' => 'bottle',
+			'database' => 'roar',
 			'charset' => 'utf8'
 		)
 

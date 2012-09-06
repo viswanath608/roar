@@ -24,10 +24,11 @@ Route::get('report/(:num)', array('before' => 'auth-user', 'do' => function($id)
 
 	$perpage = 10;
 
-	$count = Post::where('topic', '=', $post->topic)->where('id', '<', $post->id)->count();
+	$count = Post::where('discussion', '=', $post->discussion)->where('id', '<', $post->id)->count();
 	$page = ceil(++$count / $perpage);
 
-	$uri = 'topic/' . $post->topic . '-' . $post->slug . '/' . $page;
+	$slug = Discussion::find($post->discussion)->slug;
+	$uri = 'discussion/' . $slug . '/' . $page;
 
 	return Response::redirect($uri);
 }));

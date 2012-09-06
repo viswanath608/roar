@@ -46,22 +46,21 @@ Route::get(array('search/(:any)', 'search/(:any)/(:num)'), function($id, $page =
 
 	$perpage = 10;
 
-	$sql = 'select posts.*, topics.title, topics.slug from posts 
-		join topics on (topics.id = posts.topic) 
-		where posts.id in (' . implode(',', $results) . ')
-		limit ' . $perpage . ' offset ' . (($page - 1) * $perpage);
+	$posts = Query::table('posts')
+		->join('discussions', 'discussions.id', '=', 'posts.discussion')
+		->where_in('posts.id', $results)
+		->take($perpage)
+		->skip(($page - 1) * $perpage)
+		->get(array('posts.*', 'discussions.title', 'discussions.slug'));
 
-	$query = DB::query($sql);
-
-	$sql = 'select count(*) from posts 
-		join topics on (topics.id = posts.topic) 
-		where posts.id in (' . implode(',', $results) . ')';
-
-	$count = DB::query($sql);
+	$count = Query::table('posts')
+		->join('discussions', 'discussions.id', '=', 'posts.discussion')
+		->where_in('posts.id', $results)
+		->count();
 
 	$url = Uri::make('search/' . $id);
 
-	$paginator = new Paginator($query->fetchAll(), $count->fetchColumn(), $page, $perpage, $url);
+	$paginator = new Paginator($posts, $count, $page, $perpage, $url);
 
 	Registry::set('search_results', new Items($paginator->results));
 

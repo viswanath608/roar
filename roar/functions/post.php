@@ -36,10 +36,10 @@ function post_url() {
 	$perpage = 10;
 	$post = Registry::get('post');
 
-	$count = Post::where('topic', '=', $post->topic)->where('id', '<', post_id())->count();
+	$count = Post::where('discussion', '=', $post->discussion)->where('id', '<', post_id())->count();
 	$page = ceil(++$count / $perpage);
 
-	return base_url() . 'topic/' . $post->topic . '-' . $post->slug . '/' . $page . '/#post-' . post_id();
+	return base_url() . 'discussion/' . $post->slug . '/' . $page . '/#post-' . post_id();
 }
 
 function post_user_url() {

@@ -39,3 +39,7 @@ function user_total_posts() {
 function user_registered() {
 	return Date::format(Registry::get('user')->registered);
 }
+
+function user_guest() {
+	return Auth::guest();
+}

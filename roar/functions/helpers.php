@@ -1,21 +1,15 @@
 <?php
 
 function base_url($path = '') {
-	$url = Config::get('application.base_url');
-
-	if($index = Config::get('application.index_page')) {
-		$url .= $index . '/';
-	}
-
-	return $url . trim($path, '/');
+	return Uri::make($path);
 }
 
 function base_path() {
-	return Config::get('application.base_url');
+	return Config::get('application.url');
 }
 
 function theme_url($file = '') {
-	return base_path() . 'themes/' . Config::get('settings.theme') . '/' . ltrim($file, '/');
+	return base_path() . '/themes/' . Config::get('settings.theme') . '/' . ltrim($file, '/');
 }
 
 function theme_include($file) {

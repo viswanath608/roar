@@ -8,7 +8,7 @@ return array(
 		Drivers: 'cookie', 'database'.
 	*/
 
-	'driver' => 'database',
+	'driver' => 'cookie',
 
 	/*
 		Session Cookie Name
@@ -44,7 +44,7 @@ return array(
 	*/
 
 	'path' => '/',
-	
+
 	/*
 		Session Cookie Domain
 		The domain for which the session cookie is available.

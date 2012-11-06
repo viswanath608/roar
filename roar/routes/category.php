@@ -3,7 +3,7 @@
 /*
 	View Index
 */
-Route::get(array('/', '/(:any)'), function($page = 1) {
+Route::get(array('/', '(:num)'), function($page = 1) {
 	Registry::set('categories', new Items(Category::all()));
 
 	$user = Auth::user();
@@ -20,11 +20,16 @@ Route::get(array('/', '/(:any)'), function($page = 1) {
 			->or_where_is_null('user_discussions.user');
 	}
 
-	$discussions = $query->take($perpage)->skip(--$page * $perpage)
+	$count = $query->count();
+
+	$results = $query->take($perpage)->skip(($page - 1) * $perpage)
 			->order_by('votes', 'desc')->order_by('lastpost', 'desc')
 			->get($get);
 
-	Registry::set('discussions', new Items($discussions));
+	$paginator = new Paginator($results, $count, $page, $perpage, Uri::make('/'));
+
+	Registry::set('discussions', new Items($paginator->results));
+	Registry::set('paginator', $paginator->links());
 	
 	return new Template('index');
 });
@@ -40,16 +45,26 @@ Route::get(array('category/(:any)', 'category/(:any)/(:num)'), function($slug, $
 	Registry::set('categories', new Items(Category::all()));
 	Registry::set('category', $category);
 	
+	$user = Auth::user();
 	$perpage = 10;
+	$offset = ($page - 1) * $perpage;
 
-	$discussions = Discussion::where('category', '=', $category->id)
-		->order_by('votes', 'desc')
-		->order_by('lastpost', 'desc')
-		->take($perpage)
-		->skip(--$page * $perpage)
-		->get();
-		
-	Registry::set('discussions', new Items($discussions));
+	$count = Query::table(Discussion::$table)->where('category', '=', $category->id)->count();
+
+	$sql = 'select discussions.*, user_discussions.viewed 
+		from discussions
+		left join user_discussions on (user_discussions.discussion = discussions.id)
+		where discussions.category = ? 
+		and (user_discussions.user = ? or user_discussions.user is null)
+		order by votes desc, lastpost desc
+		limit ' . $perpage . ' offset ' . $offset;
+
+	$results = DB::query($sql, array($category->id, ($user ? $user->id : 0)));
+
+	$paginator = new Paginator($results, $count, $page, $perpage, Uri::make('category/' . $category->slug));
+
+	Registry::set('discussions', new Items($paginator->results));
+	Registry::set('paginator', $paginator->links());
 	
 	return new Template('category');
 });

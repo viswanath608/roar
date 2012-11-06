@@ -3,6 +3,11 @@
 /*
 	Application preprocessing
 */
+if( ! is_readable(APP . 'config/database.php')) {
+	// go to installer
+	header('Location: ' . rtrim($_SERVER['REQUEST_URI'], '/') . '/install/');
+	exit;
+}
 
 // load settings
 foreach(Query::table('settings')->get() as $item) {
@@ -27,7 +32,7 @@ function __($key, $default = '') {
 
 // admin helpers
 function asset($path) {
-	return Config::get('application.base_url') . 'roar/views/assets/' . ltrim($path, '/');
+	return rtrim(Config::get('application.base_url'), '/') . '/roar/views/assets/' . ltrim($path, '/');
 }
 
 function url($path) {

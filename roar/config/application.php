@@ -1,20 +1,21 @@
 <?php
 
 return array(
+	// Application URL
+	'url' => rtrim(dirname($_SERVER['SCRIPT_NAME']), '/'),
 
-	'base_url' => '/',
+	// Application Index
+	'index' => 'index.php',
 
-	'index_page' => 'index.php',
-
-	// your time zone
+	// Application Timezone
 	'timezone' => 'Europe/London',
 
-	// your unique application key used for signing passwords
-	'key' => '',
+	// Application Key
+	'key' => 'YourSecretKeyGoesHere',
 
-	// Default application language
+	// Default Application Language
 	'language' => 'en_GB',
 
-	// Application encoding
+	// Application Character Encoding
 	'encoding' => 'UTF-8'
 );

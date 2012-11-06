@@ -5,15 +5,16 @@ return array(
 	'default' => 'mysql',
 
 	'fetch' => PDO::FETCH_OBJ,
-	
+
 	'connections' => array(
 
 		'mysql' => array(
 			'driver' => 'mysql',
 			'hostname' => 'localhost',
+			'post' => 3306,
 			'username' => 'root',
-			'password' => 'bottle',
-			'database' => 'roar',
+			'password' => '',
+			'database' => '',
 			'charset' => 'utf8'
 		)
 

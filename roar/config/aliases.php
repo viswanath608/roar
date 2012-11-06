@@ -10,6 +10,7 @@ return array(
 	'Error' => 'System\\Error',
 	'Form' => 'System\\Form',
 	'Hash' => 'System\\Hash',
+	'Html' => 'System\\Html',
 	'Input' => 'System\\Input',
 	'Json' => 'System\\Json',
 	'Model' => 'System\\Model',

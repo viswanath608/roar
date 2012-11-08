@@ -98,7 +98,10 @@ class Connection {
 		// and set the message to include the SQL and query bindings so
 		// debugging is much easier on the developer.
 		catch(PDOException $exception) {
-			$error = $exception->getMessage() . str_repeat("\n", 3) . $sql;
+			$message = explode(':', $exception->getMessage());
+
+			$error = '<strong>Database Error:</strong>' . end($message) . str_repeat("\n", 3) .
+				'<strong>SQL: </strong>' . $sql;
 
 			$exception = new Exception($error, 0, $exception);
 

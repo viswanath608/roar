@@ -8,7 +8,7 @@ return array(
 		Drivers: 'cookie', 'database'.
 	*/
 
-	'driver' => 'cookie',
+	'driver' => 'database',
 
 	/*
 		Session Cookie Name

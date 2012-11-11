@@ -8,17 +8,17 @@ function get_twitter_api() {
 	Login with twitter
 */
 Route::get('sign-in-with-twitter', function() {
-	
+
 	$api = get_twitter_api();
 
-	$callback = 'http://' . $_SERVER['HTTP_HOST'] . Uri::make('callback');
-	
+	$callback = Uri::build(array('path' => Uri::make('callback')));
+
 	$token = $api->request_token($callback);
 
 	if($token === false) {
 		Notify::error($api->error());
 
-		return Response::redirect('/');
+		return Response::redirect('discussions');
 	}
 
 	Session::put('request_tokens', $token);
@@ -30,10 +30,14 @@ Route::get('sign-in-with-twitter', function() {
 
 Route::get('callback', function() {
 	// user declined
-	if(Input::get('denied')) return Response::redirect('/');
+	if(Input::get('denied')) {
+		Notify::error('Login declined');
+
+		return Response::redirect('/');
+	}
 
 	$api = get_twitter_api();
-	
+
 	$api->set_token(Session::get('request_tokens'));
 
 	$token = $api->access_token(Input::get('oauth_token'), Input::get('oauth_verifier'));
@@ -41,7 +45,7 @@ Route::get('callback', function() {
 	if($token === false) {
 		Notify::error($api->error());
 
-		return Response::redirect('/');
+		return Response::redirect('discussions');
 	}
 
 	$api->set_token($token);
@@ -56,7 +60,7 @@ Route::get('callback', function() {
 	}
 
 	$account = Json::decode($response);
-	
+
 	$user = User::search(array('username' => $account->screen_name));
 
 	if($user) {
@@ -83,7 +87,7 @@ Route::get('callback', function() {
 
 	Session::forget('request_tokens');
 
-	Session::put(Auth::$session, $user);
+	Session::put(Auth::$session, $user->id);
 
-	return Response::redirect('/');
+	return Response::redirect('discussions');
 });

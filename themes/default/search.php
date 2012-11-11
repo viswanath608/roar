@@ -2,30 +2,35 @@
 
 	<h3>Search</h3>
 
-	<?php echo Form::open(base_url() . 'search'); ?>
+	<div class="gs-row">
+		<div class="gs gs-1-3">
+		<?php echo Form::open(base_url() . 'search'); ?>
+			<p><label>Search Term<br>
+			<?php echo Form::input(array('class' => 'gs-4-5', 'name' => 'query'), Input::old('query')); ?></label></p>
 
-	<fieldset>
-		<p><label>Search Term<br>
-		<?php echo Form::input('query', Input::old('query')); ?></label></p>
+			<p><?php echo Form::button(array('type' => 'submit', 'class' => 'btn', 'content' => 'Search')); ?></p>
+		<?php echo Form::close(); ?>
+		</div>
 
-		<?php echo Form::submit('submit', 'Search'); ?>
-	</fieldset>
+		<div class="gs gs-2-3">
+			<?php if(search_has_results()): ?>
+			<ul class="unstyled posts">
+				<?php while(search_results()): ?>
+				<li>
+					<div id="post-<?php echo post_id(); ?>"><?php echo post_body(); ?></div>
 
-	<?php echo Form::close(); ?>
+					<p><em>by <a href="<?php echo post_user_url(); ?>"><?php echo post_user(); ?></a> posted at <?php echo post_date(); ?></em></p>
 
-	<?php if(search_has_results()): ?>
-	<ul>
-		<?php while(search_results()): ?>
-		<li>
-			<h3><a href="<?php echo post_url(); ?>"><?php echo post_title(); ?></a></h3>
+					<p><a href="<?php echo post_quote_url(); ?>">Quote</a> <a href="<?php echo post_report_url(); ?>">Report</a></p>
+				</li>
+				<?php endwhile; ?>
+			</ul>
 
-			<?php echo post_body(); ?>
-		</li>
-		<?php endwhile; ?>
-	</ul>
+			<aside class="paging"><?php echo search_paging(); ?></aside>
+			<?php endif; ?>
+		</div>
+	</div>
 
-	<?php echo search_paging(); ?>
 
-	<?php endif; ?>
 
 <?php theme_include('partials/footer'); ?>

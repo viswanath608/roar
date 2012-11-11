@@ -3,7 +3,7 @@
 /*
 	View Index
 */
-Route::get(array('/', '(:num)'), function($page = 1) {
+Route::get(array('/', 'discussions', '(:num)'), function($page = 1) {
 	Registry::set('categories', new Items(Category::all()));
 
 	$user = Auth::user();
@@ -30,7 +30,7 @@ Route::get(array('/', '(:num)'), function($page = 1) {
 
 	Registry::set('discussions', new Items($paginator->results));
 	Registry::set('paginator', $paginator->links());
-	
+
 	return new Template('index');
 });
 
@@ -44,17 +44,17 @@ Route::get(array('category/(:any)', 'category/(:any)/(:num)'), function($slug, $
 
 	Registry::set('categories', new Items(Category::all()));
 	Registry::set('category', $category);
-	
+
 	$user = Auth::user();
 	$perpage = 10;
 	$offset = ($page - 1) * $perpage;
 
 	$count = Query::table(Discussion::$table)->where('category', '=', $category->id)->count();
 
-	$sql = 'select discussions.*, user_discussions.viewed 
+	$sql = 'select discussions.*, user_discussions.viewed
 		from discussions
 		left join user_discussions on (user_discussions.discussion = discussions.id)
-		where discussions.category = ? 
+		where discussions.category = ?
 		and (user_discussions.user = ? or user_discussions.user is null)
 		order by votes desc, lastpost desc
 		limit ' . $perpage . ' offset ' . $offset;
@@ -65,7 +65,7 @@ Route::get(array('category/(:any)', 'category/(:any)/(:num)'), function($slug, $
 
 	Registry::set('discussions', new Items($paginator->results));
 	Registry::set('paginator', $paginator->links());
-	
+
 	return new Template('category');
 });
 
@@ -79,7 +79,7 @@ Route::get('login', function() {
 Route::post('login', function() {
 	if( ! Auth::attempt(Input::get('username'), Input::get('password'))) {
 		Input::flash();
-		
+
 		Notify::error('Invalid details');
 
 		return Response::redirect('login');
@@ -106,9 +106,9 @@ Route::get('register', function() {
 
 Route::post('register', function() {
 	$input = array(
-		'name' => Input::get('name'), 
+		'name' => Input::get('name'),
 		'email' => Input::get('email'),
-		'username' => Input::get('username'), 
+		'username' => Input::get('username'),
 		'password' => Input::get('password')
 	);
 

@@ -1,120 +1,269 @@
-* {
-    margin: 0;
-    padding: 0;
-    
-    -webkit-font-smoothing: antialiased;
-    
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
 
-/* Sitewide styles */
 body {
-    background: #dde2e3;
-    color: #798385;
-    
-    font: 19px/28px "Helvetica Neue", sans-serif;
-    
-    width: 960px;
-    margin: 80px auto 0;
+	font-family: "Open Sans", sans-serif;
 }
-    body:after {
-        content: '';
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        top: 0;
-        
-        border: 3px solid rgba(0,0,0,.6);
-        box-shadow: inset 0 0 0 1px #000;
-        
-        opacity: .1;
-        
-        z-index: 10;
-        pointer-events: none;
-    }
-    
-input, textarea, button {
-    font-family: inherit;
-    font-size: inherit;
 
-    color: inherit;
+.gs:first-of-type {
+	padding-left: 0;
 }
-    
-.notifications div {
-    color: #fff;
-    padding: 10px 15px;
-}
-    .notifications .error {
-        background: #e44732;
-    }
-    .notifications .success {
-        background: #78c427;
-    }
-    
-#searching {
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    z-index: 9;
-    
-    background: rgba(232,236,237,.9);
-}
-    #searching input {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        margin: -50px 0 0 -480px;
-        
-        width: 960px;
-        padding: 20px 40px;
-        
-        font-size: 48px;
-        font-weight: 300;
-    }
- 
-/* Styling partials */   
-#top {
-    overflow: hidden;
-}
-    #top a {
-        text-decoration: none;
-    }
-    #home-link, #top nav, #top nav ul, #top nav li {
-        float: left;
-    }
-        #home-link {
-            width: 185px;
-            
-            font-size: 15px;
-            font-weight: bold;
-            
-            color: #495658;
-        }
-        #top nav {
-            width: 765px;
-        }
-            #top nav ul {
-                list-style: none;
-                font-size: 13px;
-            }
-            #top nav a {
-                float: left;
-                padding-right: 40px;
 
-                font-weight: 500;
-                color: #808e91;
-            }
-    #top nav ul + ul {
-        float: right;
-    }
-    
-/* Main content area */
-#content {
-    background: #fff;
-    min-height: 500px;
+.gs:last-of-type {
+	padding-right: 0;
+}
+
+ul.unstyled, ol.unstyled {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	color: #444;
+}
+
+.block {
+	clear: both;
+	width: 100%;
+	overflow: hidden;
+}
+
+.pull-right {
+	float: right;
+}
+
+.pull-left {
+	float: left;
+}
+
+.container {
+	max-width: 70em;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+footer {
+	font-style: italic;
+	color: #333;
+}
+
+	footer .container {
+		padding: 1em 0;
+		border-top: 3px solid #eee;
+	}
+
+	footer span {
+		font-size: 0.875em;
+	}
+
+	footer a {
+		color: #444;
+	}
+
+header {
+	background: #040404;
+	color: #fff;
+	overflow: hidden;
+}
+
+	header .logo {
+		text-decoration: none;
+		color: #fff;
+		padding: 2em 0;
+		float: left;
+	}
+
+	header nav {
+		float: right;
+	}
+
+		header nav ul {
+			overflow: hidden;
+		}
+
+			header nav ul li {
+				float: left;
+			}
+
+				header nav ul li a {
+					display: block;
+					padding: 2em;
+					color: #fff;
+					text-decoration: none;
+				}
+
+					header nav ul li a:last-child {
+						padding-right: 0;
+					}
+
+.notifications {
+	padding: 1em 0;
+}
+
+	.notifications p {
+		margin: 0 0 1em 0;
+	}
+
+		.notifications p:last-child {
+			margin: 0;
+		}
+
+	.notifications .notice, .notifications .error {
+		padding: 1em;
+	}
+
+	.notifications .notice {
+		background: #D9FFA9;
+	}
+
+	.notifications .error {
+		background: #A4736C;
+		color: #fff;
+	}
+
+
+
+.categories {}
+
+	.categories li {
+		background: #eee;
+		position: relative;
+		margin: 0 0 1em 0;
+		padding: 0.5em 1em;
+	}
+
+.discussions {}
+
+	.discussions li {
+		background: #eee;
+		position: relative;
+		margin: 0 0 1em 0;
+		padding: 1em 1em 0.5em 1em;
+	}
+
+		.discussions li .title {
+			font-weight: normal;
+			margin-top: 0;
+		}
+
+			.discussions li .title a {
+				text-decoration: none;
+			}
+
+		.discussions li .unread {
+			font-weight: bold;
+		}
+
+		.discussions li .stats {
+			position: absolute;
+			right: 16px;
+			top: 16px;
+
+			background: #ccc;
+			overflow: hidden;
+		}
+
+			.discussions li .stats .stat {
+				display: inline-block;
+				padding: 0.5em;
+			}
+
+				.discussions li .stats .stat span {
+					display: inline-block;
+					width: 16px;
+					height: 16px;
+
+					text-indent: -1000px;
+					overflow: hidden;
+
+					background-repeat: no-repeat;
+					background-position: center center;
+					background-size: contain;
+				}
+
+				.discussions li .stats .replies span {
+					background-image: url('../img/noun_project_2780.svg');
+				}
+
+				.discussions li .stats .views span {
+					background-image: url('../img/noun_project_421.svg');
+				}
+
+				.discussions li .stats .votes span {
+					background-image: url('../img/noun_project_187.svg');
+				}
+
+span.votes {
+	display: inline-block;
+	padding-left: 24px;
+	margin-left: 6px;
+	height: 16px;
+	line-height: 16px;
+
+	background-repeat: no-repeat;
+	background-position: left center;
+	background-size: contain;
+	background-image: url('../img/noun_project_187_inverted.svg');
+}
+
+
+.posts {
+	padding: 0;
+}
+
+	.posts li {
+		background: #eee;
+		position: relative;
+		margin: 0 0 1em 0;
+		padding: 1em;
+	}
+
+		.posts  li blockquote {
+			border-left: 3px solid #ccc;
+			padding-left: 2em;
+			margin-left: 0;
+		}
+
+		.posts li .gs-open {
+			margin-top: 2em;
+			font-size: 0.875em;
+		}
+
+.paging {
+	margin-bottom: 1em;
+}
+
+	.paging a, .paging strong {
+		display: inline-block;
+		padding: 6px 16px;
+		background: #eee;
+		text-decoration: none;
+	}
+
+.btn {
+	display: inline-block;
+	padding: 6px 16px;
+	border: none;
+	background: #5C4D69;
+	color: #fff;
+	border-radius: 5px;
+	text-decoration: none;
+}
+
+input, select, textarea {
+	border: 1px solid #999;
+	padding: 4px;
+}
+
+input.large {
+	width: 400px;
+}
+
+textarea {
+	resize: vertical;
+	min-height: 160px;
+}
+
+input[type=checkbox] {
+	border: none;
+	padding: 0;
 }

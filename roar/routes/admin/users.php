@@ -19,8 +19,7 @@ Route::get('admin/users/edit/(:num)', array('before' => 'auth', 'do' => function
 	$vars['messages'] = Notify::read();
 	$vars['token'] = Csrf::token();
 	$vars['user'] = User::find($id);
-	$vars['statuses'] = array('inactive' => __('users.inactive'), 'active' => __('users.active'));
-	$vars['roles'] = array('administrator' => __('users.administrator'), 'editor' => __('users.editor'), 'user' => __('users.user'));
+	$vars['roles'] = array('administrator' => __('users.administrator'), 'user' => __('users.user'));
 
 	return View::make('users/edit', $vars)
 		->nest('header', 'partials/header')
@@ -28,7 +27,7 @@ Route::get('admin/users/edit/(:num)', array('before' => 'auth', 'do' => function
 }));
 
 Route::post('admin/users/edit/(:num)', array('before' => 'auth', 'do' => function($id) {
-	$input = Input::get_array(array('username', 'email', 'real_name', 'bio', 'status', 'role'));
+	$input = Input::get_array(array('role', 'name', 'email', 'username', 'password'));
 	$password_reset = false;
 
 	if($password = Input::get('password')) {
@@ -51,7 +50,7 @@ Route::post('admin/users/edit/(:num)', array('before' => 'auth', 'do' => functio
 
 	if($errors = $validator->errors()) {
 		Input::flash();
-		
+
 		Notify::error($errors);
 
 		return Response::redirect('admin/users/edit/' . $id);
@@ -83,7 +82,7 @@ Route::get('admin/users/add', array('before' => 'auth', 'do' => function() {
 }));
 
 Route::post('admin/users/add', array('before' => 'auth', 'do' => function() {
-	$input = Input::get_array(array('username', 'email', 'real_name', 'password', 'bio', 'status', 'role'));
+	$input = Input::get_array(array('role', 'name', 'email', 'username', 'password'));
 
 	$validator = new Validator($input);
 
@@ -98,7 +97,7 @@ Route::post('admin/users/add', array('before' => 'auth', 'do' => function() {
 
 	if($errors = $validator->errors()) {
 		Input::flash();
-		
+
 		Notify::error($errors);
 
 		return Response::redirect('admin/users/add');

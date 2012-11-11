@@ -69,15 +69,12 @@ Route::get(array('discussion/(:any)', 'discussion/(:any)/(:num)'), function($slu
 		return Response::error(404);
 	}
 
-	// get session for logged in users
-	$user = Auth::user();
-
 	// increment view count
 	$discussion->views += 1;
 	$discussion->save();
 
 	// mark discussion viewed or set the viewed date
-	if($user) {
+	if($user = Auth::user()) {
 		$query = Query::table('user_discussions')->where('user', '=', $user->id)->where('discussion', '=', $discussion->id);
 
 		if($query->count()) {
@@ -110,7 +107,7 @@ Route::get(array('discussion/(:any)', 'discussion/(:any)/(:num)'), function($slu
 	Registry::set('category', Category::find($discussion->category));
 	Registry::set('posts', new Items($paginator->results));
 	Registry::set('paginator', $paginator->links());
-	
+
 	return new Template('discussion');
 });
 
@@ -182,16 +179,16 @@ Route::get('vote/(:num)', array('before' => 'auth-user', 'do' => function($id) {
 
 	// get authed user
 	$user = Auth::user();
-	$voted = Query::table('user_votes')->where('user', '=', $user->id)->where('discussion', '=', $discussion->id)->count();
+	$voted = Query::table('user_votes')->where('user', '=', $user->id)->where('discussion', '=', $discussion->id);
 
 	// check if user hasnt voted
-	if( ! $voted) {
+	if( ! $voted->count()) {
 		// increment votes
 		$discussion->votes += 1;
 		$discussion->save();
 
 		// add user to votes to stop users voting multiple times
-		Query::table('user_votes')->insert(array('user' => $user->id, 'discussion' => $discussion->id));
+		$voted->insert(array('user' => $user->id, 'discussion' => $discussion->id));
 	}
 	else {
 		Notify::notice('You have already voted on this discussion');

@@ -1,13 +1,33 @@
 <?php echo $header; ?>
 
-			<h1><?php echo __('dashboard.dashboard', 'Dashboard'); ?></h1>
+	<h1><?php echo __('dashboard.dashboard', 'Dashboard'); ?></h1>
 
-			<?php echo $messages; ?>
+	<section class="content">
+		<?php echo $messages; ?>
 
-			<section class="content">
+		<ul class="list">
+			<li>
+				<a href="#">
+					<strong>Discussions</strong>
 
-				Welcome to the dashboard
+					<p>Theme Repository</p>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<strong>Posts</strong>
 
-			</section>
+					<p></p>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<strong>Users</strong>
+
+					<p>Admin</p>
+				</a>
+			</li>
+		</ul>
+	</section>
 
 <?php echo $footer; ?>

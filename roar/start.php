@@ -20,19 +20,22 @@ Config::set('settings', $settings);
 $fi = new FilesystemIterator(APP . 'functions', FilesystemIterator::SKIP_DOTS);
 
 foreach($fi as $file) {
-	if($file->isFile() and $file->isReadable() and $file->getExtension() == 'php') {
+	if($file->isFile() and $file->isReadable() and
+		pathinfo($file->getBasename(), PATHINFO_EXTENSION) == 'php') {
 		require $file->getPathname();
 	}
 }
 
 // language helper
-function __($key, $default = '') {
-	return $default;
+function __($line, $default = 'No language replacement') {
+	$args = array_slice(func_get_args(), 2);
+
+	return Language::line($line, $default, $args);
 }
 
 // admin helpers
 function asset($path) {
-	return rtrim(Config::get('application.base_url'), '/') . '/roar/views/assets/' . ltrim($path, '/');
+	return rtrim(Config::get('application.url'), '/') . '/roar/views/assets/' . ltrim($path, '/');
 }
 
 function url($path) {

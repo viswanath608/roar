@@ -2,28 +2,41 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title><?php echo __('common.manage', 'Manage'); ?> <?php echo Config::get('settings.forum_name'); ?></title>
+		<title><?php echo __('common.manage', 'Manage'); ?> <?php echo Config::get('meta.sitename'); ?></title>
 
-		<link rel="stylesheet" href="<?php echo asset('css/styles.css'); ?>">
+		<link rel="stylesheet" href="<?php echo asset('css/admin.css'); ?>">
+		<link rel="stylesheet" media="(max-width: 980px), (max-device-width: 480px)" href="<?php echo asset('css/small.css'); ?>">
+
+		<meta http-equiv="X-UA-Compatible" content="chrome=1">
+		<meta name="viewport" content="width=600">
 	</head>
-	<body>
+	<body class="<?php echo Auth::guest() ? 'login' : 'admin'; ?>">
 
-		<header>
-			<h2><a href="<?php echo url('dashboard'); ?>">Roar Forum</a></h2>
+		<header id="top">
+			<div class="wrap">
+				<?php if(Auth::user()): ?>
+				<nav>
+					<ul>
+						<li id="logo">
+							<a href="<?php echo site('admin'); ?>">
+								<img src="<?php echo asset('img/logo.png'); ?>" alt="Anchor CMS">
+							</a>
+						</li>
+						<?php foreach(array('dashboard', 'discussions', 'categories', 'users') as $url): ?>
+						<li <?php if(strpos(Uri::current(), $url) !== false) echo 'class="active"'; ?>>
+							<a href="<?php echo url($url); ?>"><?php echo ucfirst(__('common.' . $url, $url)); ?></a>
+						</li>
+						<?php endforeach; ?>
+					</ul>
+				</nav>
 
-			<?php if($user = Auth::user()): ?>
-			<nav>
-				<ul>
-					<li><a href="<?php echo url('dashboard'); ?>"><?php echo __('common.dashboard', 'Dashboard'); ?></a></li>
-					<li><a href="<?php echo url('forums'); ?>"><?php echo __('common.forums', 'Forums'); ?></a></li>
-					<li><a href="<?php echo url('users'); ?>"><?php echo __('common.users', 'Users'); ?></a></li>
-				</ul>
-			</nav>
+				<a class="btn" href="<?php echo url('logout'); ?>"><?php echo __('common.logout', 'Logout'); ?></a>
+				<a class="btn" href="<?php echo site(); ?>"><?php echo __('common.visit_your_site', 'Visit your site'); ?></a>
 
-			<p>
-				<?php echo __('common.logged_in_as', 'Logged in as'); ?> <strong><?php echo $user->name; ?></strong>. 
-				<a href="<?php echo url('logout'); ?>"><?php echo __('common.logout', 'Logout'); ?></a>
-			</p>
-			<?php endif; ?>
+				<?php else: ?>
+				<a class="login" id="logo" href="<?php echo url('dashboard'); ?>">
+					<img src="<?php echo asset('img/logo.png'); ?>" alt="Anchor CMS">
+				</a>
+				<?php endif; ?>
+			</div>
 		</header>
-

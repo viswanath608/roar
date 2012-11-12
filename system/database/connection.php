@@ -55,6 +55,18 @@ class Connection {
 		}
 	}
 
+	public function first($sql, $bindings = array()) {
+		list($statement, $result) = $this->execute($sql, $bindings);
+
+		if($result) return $statement->fetch(Config::get('database.fetch'));
+	}
+
+	public function column($sql, $bindings = array()) {
+		list($statement, $result) = $this->execute($sql, $bindings);
+
+		if($result) return $statement->fetchColumn();
+	}
+
 	public function type($var) {
 		if(is_null($var)) {
 			return PDO::PARAM_NULL;

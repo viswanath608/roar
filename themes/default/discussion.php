@@ -49,7 +49,7 @@
 				<p><?php echo Form::textarea('reply'); ?><br>
 				<small><em><a href="http://daringfireball.net/projects/markdown/syntax/">Markdown Syntax</a></em></small></p>
 
-				<p><?php echo Form::button(array('type' => 'submit', 'class' => 'btn', 'content' => 'Reply')); ?></p>
+				<p><?php echo Form::button('Reply', array('type' => 'submit', 'class' => 'btn')); ?></p>
 			<?php echo Form::close(); ?>
 		</div>
 	</div>

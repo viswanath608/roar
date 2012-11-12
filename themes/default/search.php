@@ -4,11 +4,11 @@
 
 	<div class="gs-row">
 		<div class="gs gs-1-3">
-		<?php echo Form::open(base_url() . 'search'); ?>
+		<?php echo Form::open('search'); ?>
 			<p><label>Search Term<br>
-			<?php echo Form::input(array('class' => 'gs-4-5', 'name' => 'query'), Input::old('query')); ?></label></p>
+			<?php echo Form::search('query', Input::old('query'), array('class' => 'gs-4-5')); ?></label></p>
 
-			<p><?php echo Form::button(array('type' => 'submit', 'class' => 'btn', 'content' => 'Search')); ?></p>
+			<p><?php echo Form::button('Search', array('type' => 'submit', 'class' => 'btn')); ?></p>
 		<?php echo Form::close(); ?>
 		</div>
 

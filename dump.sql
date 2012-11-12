@@ -98,7 +98,7 @@ INSERT INTO `discussions` (`category`, `slug`, `created_by`, `created`, `lastpos
 (1,  'hello-world',  1,  NOW(),  1,  NOW(),  1,  0, 0,  'Hello World', 'This is the first discussion.');
 
 INSERT INTO `posts` (`discussion`, `user`, `date`, `body`) VALUES
-(1,  1,  NOW(),  'This is the first post.');
+(1,  1,  NOW(),  '<p>This is the first post.</p>');
 
 INSERT INTO `settings` (`key`, `value`) VALUES
 ('date_format', 'H:i jS M, Y'),
@@ -108,4 +108,4 @@ INSERT INTO `settings` (`key`, `value`) VALUES
 ('twitter_consumer_secret', 'GT6f4RDpdqSiGUCs5J5rGXSyUiB4C62NPB1Z4RFU');
 
 INSERT INTO `users` (`role`, `registered`, `posts`, `name`, `email`, `username`, `password`, `token`, `secret`) VALUES
-('administrator',  NOW(),  0, 'admin', '', 'admin', '$2a$10$KhJR.9d8QqLStRAiqF1SBu8TvHT1rkyvqnAbdGESCqxHPjN3w2WJa', '', '');
+('administrator',  NOW(),  1, 'admin', '', 'admin', '$2a$10$KhJR.9d8QqLStRAiqF1SBu8TvHT1rkyvqnAbdGESCqxHPjN3w2WJa', '', '');

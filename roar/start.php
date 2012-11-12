@@ -34,7 +34,7 @@ function __($line, $default = 'No language replacement') {
 }
 
 // admin helpers
-function asset($path) {
+function admin_asset($path) {
 	return rtrim(Config::get('application.url'), '/') . '/roar/views/assets/' . ltrim($path, '/');
 }
 

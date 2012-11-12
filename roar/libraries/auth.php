@@ -16,6 +16,16 @@ class Auth {
 
 	public static function attempt($username, $password) {
 		if($user = User::search(array('username' => $username))) {
+
+			// old password from vanilla
+			$phpass = new Phpass(8, true);
+
+			if($phpass->CheckPassword($password, $user->password)) {
+				Session::put(static::$session, $user->id);
+
+				return true;
+			}
+
 			if(Hash::check($password, $user->password)) {
 				Session::put(static::$session, $user->id);
 

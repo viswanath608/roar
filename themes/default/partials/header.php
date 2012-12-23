@@ -1,43 +1,43 @@
 <!doctype html>
 <html lang="en">
 	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+		<meta charset="utf-8">
 		<title><?php echo site_name(); ?></title>
 
+		<meta name="description" content="">
+
+		<link rel="stylesheet" href="<?php echo theme_url('/css/reset.css'); ?>">
+		<link rel="stylesheet" href="<?php echo theme_url('/css/style.css'); ?>">
+		<link rel="stylesheet" href="<?php echo theme_url('/css/small.css'); ?>" media="(max-width: 400px)">
+
+		<link rel="shortcut icon" href="<?php echo theme_url('img/favicon.png'); ?>">
+
 		<!--[if lt IE 9]>
-		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+			<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 
-		<link rel="stylesheet" href="<?php echo theme_url('assets/css/normalize.css'); ?>">
-		<link rel="stylesheet" href="<?php echo theme_url('assets/css/grid.css'); ?>">
-		<link rel="stylesheet" href="<?php echo theme_url('assets/css/styles.css'); ?>">
-		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans">
+		<script>var base = '<?php echo theme_url(); ?>';</script>
+		<script src="<?php echo theme_url('/js/zepto.js'); ?>"></script>
+		<script src="<?php echo theme_url('/js/main.js'); ?>"></script>
+
+	    <meta name="viewport" content="width=device-width">
+	    <meta name="generator" content="Roar CMS">
 	</head>
 	<body>
+		<div class="main-wrap">
+			<div class="slidey" id="tray">
+			</div>
+			
+			<header id="top">
+				<a id="logo" href="<?php echo base_url(); ?>"><?php echo site_name(); ?></a>
 
-		<header>
-			<section class="container">
-				<a class="logo" href="<?php echo base_url(); ?>"><?php echo site_name(); ?></a>
-
-				<nav>
-					<ul class="unstyled">
-						<li><a href="<?php echo base_url(); ?>">Home</a></li>
+				<nav id="main" role="navigation">
+					<ul>
 						<li><a href="<?php echo base_url() . 'search'; ?>">Search</a></li>
-						<?php if(user_guest()): ?>
-						<li><a href="<?php echo base_url() . 'sign-in-with-twitter'; ?>">Sign in with Twitter</a></li>
-						<li><a href="<?php echo base_url() . 'register'; ?>">Dont have Twitter? Register here</a></li>
-						<li><a href="<?php echo base_url() . 'login'; ?>">Login to <?php echo site_name(); ?></a></li>
-						<?php else: ?>
-						<li><a href="<?php echo base_url() . 'profiles/' . Auth::user()->username; ?>">My Account</a></li>
-						<li><a href="<?php echo base_url() . 'logout'; ?>">Logout</a></li>
-						<?php endif; ?>
+						
+						<li class="tray">
+							<a href="#tray" class="linky"><img src="<?php echo theme_url('img/categories.png'); ?>" alt="Categories" title="View my posts by category"></a>
+						</li>
 					</ul>
 				</nav>
-			</section>
-		</header>
-
-		<section class="container">
-
-			<?php echo notifications(); ?>
-
+			</header>

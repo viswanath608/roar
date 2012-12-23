@@ -37,7 +37,7 @@ Route::get(array('/', 'discussions', 'discussions/(:num)'), function($page = 1) 
 /*
 	View category
 */
-Route::get(array('category/(:any)', 'category/(:any)/(:num)'), function($slug, $page = 1) {
+Route::get(array('(:any)', '(:any)/(:num)'), function($slug, $page = 1) {
 	if( ! $category = Category::slug($slug)) {
 		return Response::error(404);
 	}

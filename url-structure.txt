@@ -1,0 +1,17 @@
+/                  => main index, latest posts
+  /(:any)          => category page, filtered by category
+  /(:any)?page=n   => category page, paginated
+    /(:any)/(:any) => single post page
+
+  /search          => advanced search
+    /search/(:any) => search results page
+  
+  /login           => integrated login form
+    /login/twitter => twitter login
+  /signup          => and manual signup
+  
+  /users           => user leaderboard (by post/reply count)
+    /users/(:any)  => user profile
+   
+  /create          => new discussion, option to pick category
+    /(:any)/create => new discussion under category (:any)

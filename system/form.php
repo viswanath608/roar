@@ -1,5 +1,15 @@
 <?php namespace System;
 
+/**
+ * Nano
+ *
+ * Lightweight php framework
+ *
+ * @package		nano
+ * @author		k. wilson
+ * @link		http://madebykieron.co.uk
+ */
+
 class Form {
 
 	public static function open($action, $method = 'POST', $attributes = array()) {
@@ -120,14 +130,13 @@ class Form {
 	}
 
 	protected static function option($value, $display, $selected) {
-		if(is_array($selected)) {
-			$selected = (in_array($value, $selected)) ? 'selected' : null;
-		}
-		else {
-			$selected = ((string) $value == (string) $selected) ? 'selected' : null;
-		}
+		$attributes = array('value' => Html::entities($value));
 
-		$attributes = array('value' => Html::entities($value), 'selected' => $selected);
+		if( ! is_null($selected)) {
+			if((is_array($selected) and in_array($value, $selected)) or ($value == $selected)) {
+				$attributes['selected'] = 'selected';
+			}
+		}
 
 		return Html::element('option', Html::entities($display), $attributes);
 	}
@@ -163,6 +172,8 @@ class Form {
 	}
 
 	public static function button($value = null, $attributes = array()) {
+		if( ! isset($attributes['type'])) $attributes['type'] = 'button';
+
 		return Html::element('button', Html::entities($value), $attributes);
 	}
 

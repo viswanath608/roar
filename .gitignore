@@ -2,3 +2,5 @@
 *.esproj
 .htaccess
 /roar/config/dev
+/themes/*
+!/themes/default

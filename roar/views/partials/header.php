@@ -18,7 +18,7 @@
 				<nav>
 					<ul>
 						<li id="logo">
-							<a href="<?php echo site('admin'); ?>">
+							<a href="<?php echo base_url('admin'); ?>">
 								<img src="<?php echo admin_asset('img/logo.png'); ?>" alt="Anchor CMS">
 							</a>
 						</li>
@@ -31,7 +31,7 @@
 				</nav>
 
 				<a class="btn" href="<?php echo url('logout'); ?>"><?php echo __('common.logout', 'Logout'); ?></a>
-				<a class="btn" href="<?php echo site(); ?>"><?php echo __('common.visit_your_site', 'Visit your site'); ?></a>
+				<a class="btn" href="<?php echo base_url(); ?>"><?php echo __('common.visit_your_site', 'Visit your site'); ?></a>
 
 				<?php else: ?>
 				<a class="login" id="logo" href="<?php echo url('dashboard'); ?>">

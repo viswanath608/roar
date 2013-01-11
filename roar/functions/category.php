@@ -3,10 +3,10 @@
 function categories() {
 	$items = Registry::get('categories');
 
-	if($item = $items->valid()) {	
+	if($item = $items->valid()) {
 		// register single post
 		Registry::set('category', $items->current());
-		
+
 		// move to next
 		$items->next();
 	}
@@ -31,5 +31,13 @@ function category_slug() {
 }
 
 function category_url() {
-	return base_url() . 'category/' . category_slug();
+	return base_url('category/' . category_slug());
+}
+
+function category_post_count() {
+	return Registry::get('category')->posts;
+}
+
+function category_paging() {
+	return Registry::get('paginator');
 }

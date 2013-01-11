@@ -10,11 +10,11 @@ return array(
 
 		'mysql' => array(
 			'driver' => 'mysql',
-			'hostname' => '127.0.0.1',
+			'hostname' => 'localhost',
 			'port' => 3306,
 			'username' => 'root',
 			'password' => '',
-			'database' => 'roar',
+			'database' => '',
 			'charset' => 'utf8'
 		)
 

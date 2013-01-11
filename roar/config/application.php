@@ -5,7 +5,7 @@ return array(
 	'url' => rtrim(dirname($_SERVER['SCRIPT_NAME']), '/'),
 
 	// Application Index
-	'index' => '',
+	'index' => 'index.php',
 
 	// Application Timezone
 	'timezone' => 'Europe/London',

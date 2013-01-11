@@ -38,10 +38,6 @@ function admin_asset($path) {
 	return rtrim(Config::get('application.url'), '/') . '/roar/views/assets/' . ltrim($path, '/');
 }
 
-function url($path) {
+function admin_url($path) {
 	return base_url('admin/' . $path);
-}
-
-function site() {
-	return base_url();
 }

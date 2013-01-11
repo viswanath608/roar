@@ -17,7 +17,7 @@ class Auth {
 	public static function attempt($username, $password) {
 		if($user = User::search(array('username' => $username))) {
 
-			// old password from vanilla
+			// test ported passwords
 			$phpass = new Phpass(8, true);
 
 			if($phpass->CheckPassword($password, $user->password)) {

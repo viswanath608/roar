@@ -20,4 +20,12 @@ class Category extends Model {
 		return $options;
 	}
 
+	public static function all() {
+		$sql = 'select categories.*, coalesce(sum(discussions.replies), 0) as posts from categories
+			left join discussions on (discussions.category = categories.id)
+			group by discussions.category';
+
+		return DB::query($sql);
+	}
+
 }

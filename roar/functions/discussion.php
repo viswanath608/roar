@@ -3,10 +3,13 @@
 function discussions() {
 	$items = Registry::get('discussions');
 
-	if($item = $items->valid()) {	
+	if($item = $items->valid()) {
 		// register single post
 		Registry::set('discussion', $items->current());
-		
+
+		// register category
+		Registry::set('category', Category::find($items->current()->category));
+
 		// move to next
 		$items->next();
 	}
@@ -23,7 +26,7 @@ function discussion_votes() {
 }
 
 function discussion_vote_url() {
-	return base_url() . 'vote/' . discussion_id();
+	return base_url('vote/' . discussion_id());
 }
 
 function discussion_replies() {
@@ -51,11 +54,11 @@ function discussion_created_by() {
 }
 
 function discussion_created_by_url() {
-	return base_url() . 'profiles/' . discussion_created_by();
+	return base_url('profiles/' . discussion_created_by());
 }
 
-function discussion_created() {
-	return Date::format(Registry::get('discussion')->created);
+function discussion_created($format = null) {
+	return Date::relative(Registry::get('discussion')->created, $format);
 }
 
 function discussion_lastpost_by() {
@@ -63,11 +66,11 @@ function discussion_lastpost_by() {
 }
 
 function discussion_lastpost_by_url() {
-	return base_url() . 'profiles/' . discussion_lastpost_by();
+	return base_url('profiles/' . discussion_lastpost_by());
 }
 
-function discussion_lastpost() {
-	return Date::format(Registry::get('discussion')->lastpost);
+function discussion_lastpost($format = null) {
+	return Date::relative(Registry::get('discussion')->lastpost, $format);
 }
 
 function discussion_title() {
@@ -83,13 +86,13 @@ function discussion_slug() {
 }
 
 function discussion_url() {
-	return base_url() . 'discussion/' . discussion_slug();
-}
-
-function discussion_create_url() {
-	return base_url() . 'discussion/create';
+	return base_url('discussion/' . discussion_slug());
 }
 
 function discussion_paging() {
 	return Registry::get('paginator');
+}
+
+function discussion_create_url() {
+	return base_url('discussion/create');
 }

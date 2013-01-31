@@ -9,7 +9,7 @@ function base_path() {
 }
 
 function theme_url($file = '') {
-	return base_path() . '/themes/' . Config::get('settings.theme') . '/' . ltrim($file, '/');
+	return asset('themes/' . Config::get('settings.theme') . '/' . ltrim($file, '/'));
 }
 
 function theme_include($file) {

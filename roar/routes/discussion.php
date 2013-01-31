@@ -65,8 +65,15 @@ Route::post('discussion/create', array('before' => 'auth-user', 'do' => function
 	View discussion
 */
 Route::get(array('discussion/(:any)', 'discussion/(:any)/(:num)'), function($slug, $page = 1) {
-	if( ! $discussion = Discussion::slug($slug)) {
-		return Response::error(404);
+	if(is_numeric($slug)) {
+		if( ! $discussion = Discussion::find($slug)) {
+			return Response::error(404);
+		}
+	}
+	else {
+		if( ! $discussion = Discussion::slug($slug)) {
+			return Response::error(404);
+		}
 	}
 
 	// increment view count

@@ -24,7 +24,7 @@
 						</li>
 						<?php foreach(array('dashboard', 'discussions', 'categories', 'users') as $url): ?>
 						<li <?php if(strpos(Uri::current(), $url) !== false) echo 'class="active"'; ?>>
-							<a href="<?php echo url($url); ?>"><?php echo ucfirst(__('common.' . $url, $url)); ?></a>
+							<a href="<?php echo url('admin/' . $url); ?>"><?php echo ucfirst(__('common.' . $url, $url)); ?></a>
 						</li>
 						<?php endforeach; ?>
 					</ul>

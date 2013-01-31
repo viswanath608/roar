@@ -58,10 +58,8 @@ function post_date($format = null) {
 }
 
 function post_body() {
-	$body = strip_tags(Registry::get('post')->body);
-
 	$markdown = new Markdown;
-	$body = $markdown->transform($body);
+	$body = $markdown->transform(Registry::get('post')->body);
 
 	return $body;
 }

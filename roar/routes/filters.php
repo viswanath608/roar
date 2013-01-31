@@ -1,7 +1,14 @@
 <?php
 
 Route::filter('auth', function() {
-	if(Auth::guest()) return Response::redirect('admin/login');
+	if(Auth::guest()) {
+		return Response::redirect('admin/login');
+	}
+	else {
+		$user = Auth::user();
+
+		if($user->role != 'administrator') return Response::redirect('admin/login');
+	}
 });
 
 Route::filter('auth-user', function() {
